@@ -54,4 +54,25 @@ export default function Dashboard() {
             <ul className="space-y-2">
               {todayAppointments.map((a) => (
                 <li key={a.id} className="flex justify-between text-sm">
-                  <span className="text-slate-700">{a.
+                  <span className="text-slate-700">{a.patient_name} — {a.doctor_name}</span>
+                  <span className="text-slate-500">
+                    {new Date(a.scheduled_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </Layout>
+  );
+}
+
+function StatCard({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="bg-white border border-slate-200 rounded-lg p-4">
+      <p className="text-2xl font-semibold text-slate-800">{value}</p>
+      <p className="text-xs text-slate-500 mt-0.5">{label}</p>
+    </div>
+  );
+}
