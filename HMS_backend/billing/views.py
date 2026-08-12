@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Invoice
 from .serializers import InvoiceSerializer
 from accounts.permissions import IsAdminOrReceptionist
@@ -8,6 +9,12 @@ class InvoiceViewSet(viewsets.ModelViewSet):
     queryset = Invoice.objects.select_related('visit').all()
     serializer_class = InvoiceSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {
+        'visit': ['exact'],
+        'visit__appointment__patient': ['exact'],
+        'status': ['exact'],
+    }
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
