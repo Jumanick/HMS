@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../components/Layout';
+import Layout from '../components/Layout.tsx';
 import { useAuth } from '../context/AuthContext';
-import { fetchAppointments, createAppointment, completeAppointment } from '../api/appointments';
 import { fetchPatients } from '../api/patients';
 import { fetchDoctors } from '../api/doctors';
 import type { Appointment, AppointmentFormInput, Patient, DoctorProfile, AppointmentStatus } from '../types/models';
+import { fetchAppointments, createAppointment, completeAppointment, cancelAppointment } from '../api/appointments';
 
 const STATUS_STYLES: Record<AppointmentStatus, string> = {
   scheduled: 'bg-blue-50 text-blue-700',
@@ -88,6 +88,15 @@ export default function Appointments() {
       alert('Could not complete this appointment. It may already be completed.');
     }
   }
+  async function handleCancel(id: string) {
+  if (!confirm('Cancel this appointment? This cannot be undone.')) return;
+  try {
+    await cancelAppointment(id);
+    load();
+  } catch {
+    alert('Could not cancel this appointment.');
+  }
+}
 
   return (
     <Layout>
@@ -181,7 +190,7 @@ export default function Appointments() {
                 <th className="text-left px-4 py-2.5">Doctor</th>
                 <th className="text-left px-4 py-2.5">When</th>
                 <th className="text-left px-4 py-2.5">Status</th>
-                {isDoctor && <th className="text-left px-4 py-2.5">Action</th>}
+                {(isDoctor || canManage) && <th className="text-left px-4 py-2.5">Action</th>}
               </tr>
             </thead>
             <tbody>

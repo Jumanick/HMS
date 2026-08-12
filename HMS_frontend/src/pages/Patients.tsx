@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 import { fetchPatients, createPatient } from '../api/patients';
 import type { Patient, PatientFormInput } from '../types/models';
+import { Link } from 'react-router-dom';
 
 const emptyForm: PatientFormInput = {
   first_name: '',
@@ -215,15 +216,20 @@ export default function Patients() {
                 </tr>
               ) : (
                 patients.map((p) => (
-                  <tr key={p.id} className="border-t border-slate-100">
-                    <td className="px-4 py-2.5 font-medium text-slate-700">
-                      {p.first_name} {p.last_name}
-                    </td>
-                    <td className="px-4 py-2.5 text-slate-500 font-mono text-xs">{p.medical_record_number}</td>
-                    <td className="px-4 py-2.5 text-slate-500">{p.date_of_birth}</td>
-                    <td className="px-4 py-2.5 text-slate-500">{p.phone}</td>
-                  </tr>
-                ))
+                    <tr
+                      key={p.id}
+                      className="border-t border-slate-100 hover:bg-slate-50 cursor-pointer"
+                    >
+                      <td className="px-4 py-2.5 font-medium text-slate-700">
+                        <Link to={`/patients/${p.id}`} className="block">
+                          {p.first_name} {p.last_name}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-2.5 text-slate-500 font-mono text-xs">{p.medical_record_number}</td>
+                      <td className="px-4 py-2.5 text-slate-500">{p.date_of_birth}</td>
+                      <td className="px-4 py-2.5 text-slate-500">{p.phone}</td>
+                    </tr>
+                  ))
               )}
             </tbody>
           </table>

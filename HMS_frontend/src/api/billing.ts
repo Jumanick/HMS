@@ -13,3 +13,9 @@ export async function markInvoicePaid(id: string) {
   });
   return res.data;
 }
+export async function fetchInvoicesForPatient(patientId: string) {
+  const res = await apiClient.get<PaginatedResponse<Invoice>>('/invoices/', {
+    params: { visit__appointment__patient: patientId },
+  });
+  return res.data.results;
+}

@@ -10,7 +10,12 @@ export async function fetchVisit(id: string) {
   const res = await apiClient.get<Visit>(`/visits/${id}/`);
   return res.data;
 }
-
+export async function fetchVisitsForPatient(patientId: string) {
+  const res = await apiClient.get<PaginatedResponse<Visit>>('/visits/', {
+    params: { appointment__patient: patientId },
+  });
+  return res.data.results;
+}
 export async function addPrescription(
   visitId: string,
   data: Omit<Prescription, 'id' | 'visit' | 'created_at'>

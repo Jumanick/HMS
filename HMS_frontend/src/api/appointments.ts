@@ -1,6 +1,7 @@
 import apiClient from './client';
 import type { Appointment, AppointmentFormInput, PaginatedResponse, Visit } from '../types/models';
 
+
 export async function fetchAppointments(page = 1) {
   const res = await apiClient.get<PaginatedResponse<Appointment>>('/appointments/', {
     params: { page },
@@ -16,6 +17,16 @@ export async function createAppointment(data: AppointmentFormInput) {
 export async function updateAppointmentStatus(id: string, status: string) {
   const res = await apiClient.patch<Appointment>(`/appointments/${id}/`, { status });
   return res.data;
+}
+export async function cancelAppointment(id: string) {
+  return updateAppointmentStatus(id, 'cancelled');
+}
+
+export async function fetchAppointmentsForPatient(patientId: string) {
+  const res = await apiClient.get<PaginatedResponse<Appointment>>('/appointments/', {
+    params: { patient: patientId },
+  });
+  return res.data.results;
 }
 
 export async function completeAppointment(id: string, notes: string, diagnosis: string) {
