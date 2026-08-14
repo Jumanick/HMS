@@ -14,4 +14,5 @@ urlpatterns = [
     path('api/', include('appointments.urls')),
     path('api/', include('emr.urls')),
     path('api/', include('billing.urls')),
+    path('api/hr/', include('hr.urls')),
 ]
