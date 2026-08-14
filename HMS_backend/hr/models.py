@@ -21,13 +21,13 @@ class EmployeeProfile(models.Model):
         blank=True,
         related_name="employee_profile",
     )
-    emloyee_number = models.CharField(max_length= 20, unique= True, default= generate_employee_number, editable= False)
+    employee_number = models.CharField(max_length= 20, unique= True, default= generate_employee_number, editable= False)
     first_name = models.CharField(max_length= 100)
     last_name = models.CharField(max_length= 100)
     email = models.CharField(max_length= 100, blank= True)
     department = models.CharField(max_length= 100)
     position = models.CharField(max_length= 100)
-    hire_date = models.models.DateField()
+    hire_date = models.DateField()
     employment_status = models.CharField(max_length= 20, choices= EmploymentStatus.choices, default= EmploymentStatus.ACTIVE)
     created_at = models.DateTimeField(auto_now= True)
     
