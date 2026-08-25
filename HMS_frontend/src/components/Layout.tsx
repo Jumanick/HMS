@@ -18,6 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="min-h-screen flex bg-slate-50">
       <aside className="w-56 bg-slate-900 text-slate-200 flex flex-col shrink-0">
         <div className="px-5 py-5 border-b border-slate-800">
+          <p className="text-sm font-semibold text-white tracking-wide">SoftClinic</p>
           <p className="text-sm font-semibold text-white tracking-wide">HMS</p>
           <p className="text-xs text-slate-400 mt-0.5">
             {user?.first_name} {user?.last_name}
