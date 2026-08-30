@@ -8,6 +8,7 @@ import PatientDetail from './pages/PatientDetail';
 import Appointments from './pages/Appointments';
 import Visits from './pages/Visits';
 import Billing from './pages/Billing';
+import Employees from './pages/Employees';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/appointments" element={<ProtectedRoute><Appointments /></ProtectedRoute>} />
           <Route path="/visits" element={<ProtectedRoute><Visits /></ProtectedRoute>} />
           <Route path="/billing" element={<ProtectedRoute><Billing /></ProtectedRoute>} />
+          <Route path="/hr" element={<ProtectedRoute allowedRoles={['admin']}><Employees /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
